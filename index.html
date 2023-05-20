@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Dashboard</title>
+  <!--Bootstrap CSS CDN-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/a695a3856f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="topnav">
+    <h1>Weather Dashboard</h1>
+  </div>
+
+  <!-- City Search Bar -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-2 bg-light">
+        <h4 class="pt-2">Search for a City:</h4>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id="city-search">
+          <div class="input-group-append">
+            <button class="btn bg-primary text-light" id="city-search-button"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+        <!--History of searched cities-->
+        <div class="card">
+          <div class="card-body">
+            <ul class="list-group-flush" id="city-list"></ul>
+          </div>
+        </div>
+        <!--City history clear button-->
+        <button onclick="deleteItems()" class="btn btn-primary mt-3" type="button" id="clear-history">Clear City
+          History</button>
+      </div>
+
+      <!-- Weather information for current city -->
+      <div class="col-lg-10 mt-3">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card border border-dark rounded">
+              <div class="card-body">
+                <h5 class="card-title" id="current-city"></h5>
+                <p class="card-text" id="temperature"></p>
+                <p class="card-text" id="humidity"></p>
+                <p class="card-text" id="wind-speed"></p>
+               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Forecast for the next 5 days -->
+      <section class="row forecast">
+        <div class="col col1">
+          <div class="card">
+            <div class="card-header subtitle">
+              <h5>Forecast</h5>
+            </div>
+            <div class="card-body">
+              <div class="row row-cols-5">
+                <div class="col">
+                  <div class="card mb-3" style="max-width: 18rem;">
+                    <div class="card-header date">Day 1</div>
+                    <div class="card-body">
+                      <img
+                        src="#"
+                        class="card-img-top icon"
+                        alt="Weather icon"
+                        style="display: none;"
+                      />
+                      <p class="card-text weather">Weather</p>
+                      <p class="card-text temp">Temp</p>
+                      <p class="card-text humid">Humid</p>
+                      <p class="card-text wind">Wind Speed</p>
+                      <p class="card-text">
+                        <span class="uv">Index</span> <span class="flag"></span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card mb-3" style="max-width: 18rem;">
+                    <div class="card-header date">Day 2</div>
+                    <div class="card-body">
+                      <img
+                        src="#"
+                        class="card-img-top icon"
+                        alt="Weather icon"
+                        style="display: none;"
+                      />
+                      <p class="card-text weather">Weather</p>
+                      <p class="card-text temp">Temp</p>
+                      <p class="card-text humid">Humid</p>
+                      <p class="card-text wind">Wind Speed</p>
+                      <p class="card-text">
+                        <span class="uv">Index</span> <span class="flag"></span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card mb-3" style="max-width: 18rem;">
+                    <div class="card-header date">Day 3</div>
+                    <div class="card-body">
+                      <img
+                        src="#"
+                        class="card-img-top icon"
+                        alt="Weather icon"
+                        style="display: none;"
+                      />
+                      <p class="card-text weather">Weather</p>
+                      <p class="card-text temp">Temp</p>
+                      <p class="card-text humid">Humid</p>
+                      <p class="card-text wind">Wind Speed</p>
+                      <p class="card-text">
+                        <span class="uv">Index</span> <span class="flag"></span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card mb-3" style="max-width: 18rem;">
+                    <div class="card-header date">Day 4</div>
+                    <div class="card-body">
+                      <img
+                        src="#"
+                        class="card-img-top icon"
+                        alt="Weather icon"
+                        style="display: none;"
+                      />
+                      <p class="card-text weather">Weather</p>
+                      <p class="card-text temp">Temp</p>
+                      <p class="card-text humid">Humid</p>
+                      <p class="card-text wind">Wind Speed</p>
+                      <p class="card-text">
+                        <span class="uv">Index</span> <span class="flag"></span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card mb-3" style="max-width: 18rem;">
+                    <div class="card-header date">Day 5</div>
+                    <div class="card-body">
+                      <img
+                        src="#"
+                        class="card-img-top icon"
+                        alt="Weather icon"
+                        style="display: none;"
+                      />
+                      <p class="card-text weather">Weather</p>
+                      <p class="card-text temp">Temp</p>
+                      <p class="card-text humid">Humid</p>
+                      <p class="card-text wind">Wind Speed</p>
+                      <p class="card-text">
+                        <span class="uv">Index</span> <span class="flag"></span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+  <!--JavaScript CDN-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js"></script>
+
+  <script src="script.js"></script>
+</body>
+  <footer>🐇</footer>
+</html>
+
+
+
