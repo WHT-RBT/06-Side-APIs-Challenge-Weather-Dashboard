@@ -21,4 +21,5 @@ The following clip shows the web application's appearance and functionality:
 ![Alt text](Assets/clip.gif)
 
 Active URL: https://wht-rbt.github.io/06-Side-APIs-Challenge-Weather-Dashboard/
+
 GitHub repository: https://github.com/WHT-RBT/06-Side-APIs-Challenge-Weather-Dashboard
