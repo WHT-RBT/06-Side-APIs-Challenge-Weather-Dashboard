@@ -1,11 +1,11 @@
 $(document).ready(function() {
   var apiKey = "672259a8e3e7d5079c23171b6153aa99";
 
-  // Function to populate the current weather data
+  //Function to populate current weather
   function populateCurrentWeather(currentWeather) {
     $("#current-city").text(currentWeather.name);
     
-    // Get current date
+    //Gets current date
     var currentDate = new Date();
     var formattedDate = currentDate.toLocaleDateString(undefined, {
       weekday: 'long',
@@ -17,12 +17,12 @@ $(document).ready(function() {
     $("#current-temperature").text("Temp: " + currentWeather.main.temp + " °F");
     $("#current-humidity").text("Humidity: " + currentWeather.main.humidity + "%");
     $("#current-wind-speed").text("Wind Speed: " + currentWeather.wind.speed + " MPH");
-    // Display weather icon
+    //Displays weather icon
     var weatherIconUrl = "https://openweathermap.org/img/wn/" + currentWeather.weather[0].icon + ".png";
     var weatherIcon = $("<img>").attr("src", weatherIconUrl).addClass("weather-icon");
     $("#current-weather-icon").empty().append(weatherIcon);
   }
-  // Function to get current weather data for latitude/longitude
+  //Function to get current weather for latitude/longitude
   function getCurrentWeather(lat, lon) {
     var url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
     $.ajax({
@@ -32,7 +32,7 @@ $(document).ready(function() {
       populateCurrentWeather(data);
     });
   }
-    // Function to populate forecast data
+    //Function to populate forecast
   function makeForecast(forecastData) {
     for (var i = 0; i < forecastData.length; i++) {
       var forecast = forecastData[i];
@@ -41,15 +41,12 @@ $(document).ready(function() {
 
       var forecastTemperatureId = "#forecast-temperature-" + (i + 1);
       var forecastDateId = "#forecast-date-" + (i + 1);
-
-      // Extract the date from the forecast data
       var forecastDate = new Date(forecast.dt * 1000); 
       var formattedDate = forecastDate.toLocaleDateString("en-US", {
         month: "2-digit",
         day: "2-digit",
         year: "2-digit"
       });
-
       var forecastHumidityId = "#forecast-humidity-" + (i + 1);
       var forecastWindSpeedId = "#forecast-wind-speed-" + (i + 1);
       var forecastIconId = "#forecast-icon-" + (i + 1);
@@ -62,7 +59,7 @@ $(document).ready(function() {
       $(forecastIconId).show();
     }
   }
-  // Function to get forecast data for latitude/longitude
+  //Function to get forecast for latitude/longitude
   function getForecast(lat, lon) {
     var url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`
     $.ajax({
@@ -72,7 +69,7 @@ $(document).ready(function() {
       makeForecast(data.list);
     });
   }
-  // Function to save a city to the search history
+  //Function to save a city to the search history
   function saveCityToHistory(city) {
     var searchedCities = JSON.parse(localStorage.getItem("searchedCities")) || [];
     var index = searchedCities.indexOf(city);
@@ -82,18 +79,17 @@ $(document).ready(function() {
     searchedCities.unshift(city);
     searchedCities = searchedCities.slice(0, 8);
 
-    // Save search history to local storage
+    //Saves search history to local storage
     localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
-
     displaySearchHistory();
   }
-  // Function to display the search history
+  //Function to display search history
   function displaySearchHistory() {
     var searchedCities = JSON.parse(localStorage.getItem("searchedCities")) || [];
 
     $("#searched-cities").empty();
 
-    // Iterate over the search history and create clickable links
+    //Makes search history clickable links
     for (var i = 0; i < searchedCities.length; i++) {
       var city = searchedCities[i];
       var listItem = $("<li>").addClass("list-group-item").text(city);
@@ -106,7 +102,7 @@ $(document).ready(function() {
       $("#clear-history-button").hide();
     }
   }
-  // Event listener for city search button
+  //Event listener for city search button
   $("#city-search-button").on("click", function(event) {
     event.preventDefault();
 
@@ -114,7 +110,7 @@ $(document).ready(function() {
     if (city !== "") {
       $("#city-search").val("");
 
-      // Gets the latitude/longitude for entered city
+      //Gets the latitude/longitude for entered city
       var geocodingUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
       $.ajax({
         url: geocodingUrl,
@@ -125,7 +121,7 @@ $(document).ready(function() {
           var lon = data[0].lon;
           getCurrentWeather(lat, lon);
           getForecast(lat, lon);
-          // Save the city to the search history
+          //Saves the city to the search history
           saveCityToHistory(city);
         } else {
           alert("City not found. Please enter a valid city name.");
@@ -133,10 +129,10 @@ $(document).ready(function() {
       });
     }
   });
-  // Event listener for search history links
+  //Event listener for search history to become usable links
   $(document).on("click", "#searched-cities li", function() {
     var city = $(this).attr("data-city");
-    // Retrieve the latitude and longitude for the selected city
+    //Gets the latitude/longitude for the selected city
     var geocodingUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
     $.ajax({
       url: geocodingUrl,
@@ -152,7 +148,7 @@ $(document).ready(function() {
       }
     });
   });
-  // Display the search history on page load
+  //Displays the search history on page load
   displaySearchHistory();
 
   $("#clear-history-button").on("click", function() {
